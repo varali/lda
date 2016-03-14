@@ -1,0 +1,60 @@
+This is Supplement A to "Model trees with topic model pre-processing: An approach for data journalism illustrated by the Wikileaks Afghanistan war logs" (AOAS 618) published in The Annals of Applied Statistics, 2013.
+
+It includes
+
+################################################################
+######### DATA #################################################
+################################################################
+
+* afg.csv ... The original wikileaks data file in .csv format (unprocessed with text summaries). The data originated from http://wikileaks.org/wiki/Afghan_War_Diary,_2004-2010, which is no longer accessible. An archived version of the dataset is available here: http://archive.org/details/WikileaksWarDiaryCsv. A guide to all the variables can be found here http://wikileaks.org/afg/ or below. 
+
+* afgClean.RData ... The clean version of the data after pre-processing (i.e. after topic model fitting, document assignment and data cleaning). This data set is enough to fit the negative binomial tree. To save space we excluded the report summaries but they are available in afg.csv.
+
+      Variables in the data set:
+   		- Our target variables was the one labeled with kiaAll (the sum of kiaEnemy, kiaCiv etc)
+                - The topic assignments are collected in the variables (ttopicnumber, e.g., t100 or Topic_topicnumber Topic_100)
+                - All other variables that we used are described in the main paper   
+		- A guide to all the variables can be found here http://wikileaks.org/afg/ and states: 
+    		            - unique repKey; it may be used to find messages and also to reference them.
+  		            - timeOccurred; this provides the date and time of the event or message. See Time and Date formats for details on the used formats.
+    			    - type contains typically a broad classification of the type of event, like Friendly Action, Enemy Action, Non-Combat Event. It can be used to filter for messages of a certain type.
+			    - category further describes what kind of event the message is about. There are a lot of categories, from propaganda, weapons cache finds to various types of combat activities
+			    - trackingNr is an internal tracking number.
+    			    - title contains the title of the message.
+    			    - region contains the broader region of the event.
+    			    - attackOn contains the information who was attacked during an event.
+    			    - complexAttack is a flag that signifies that an attack was a larger operation that required more planning, coordination and preparation. This is used as a quick filter criterion to detect events that were out of the ordinary in terms of enemy capabilities.
+   			    - repUnit, unitName, unitType contains the information on the military unit that authored the report.
+    			    - Wounded and death are listed as numeric values, sorted by affiliation. WIA is the abbreviation for Wounded In Action. KIA is the abbreviation for Killed In Action. The numbers are recorded in the fields FriendlyWIA,FriendlyKIA,HostNationWIA,HostNationKIA,CivilianWIA,CivilianKIA,EnemyWIA,EnemyKIA
+    			    - Captured enemies are numbered in the field detainedEnemy.
+    			    - The location of events are recorded in the fields mgrs (Military Grid Reference System), Latitude, Longitude.
+    			    - originatorGroup, updatedGroup, ccir (Commander's Critical Information Requirements) contain information on the overall military unit, like ISAF Headquarter, that a message originated from or was updated by. Updates frequently occur when an analysis group, like one that investigated an incident or looked into the makeup of an Improvised Explosive Device added its results to a message.
+    			    - sigact if an activity that is reported is deemed "significant". Significant activities are analyzed and evaluated by a special group in the command structure.
+ 			    - affiliation describes if the event was of friendly or enemy nature.
+     			    - dcolor controls the display color of the message in the messaging system and map views. Messages relating to enemy activity have the color Red, those relating to friendly activity are colored Blue.
+    			    - classification contains the classification level of the message, e.g. Secret
+
+* topicterms.rda ... The result of the topic model step. It is a 100x100 matrix with the rows listing the 100 most frequent terms (stemmed and canonicalized; in descending order) for all 100 topics.  
+
+################################################################
+######### GRAPHICS #############################################
+################################################################
+
+
+* A graphic file journal_afg-tree.pdf which is a high resolution image of the tree plot (Figure 3) in the paper
+
+
+################################################################
+######### R CODE ###############################################
+################################################################
+
+
+* R Code for reproducing all analyses: 
+    - model fitting and so on: 
+            *analysisWikileaks.R ... The steps needed to get our results. It contains the topic model part (leading to topicterms.rda), the data cleaning (leading to afgClean.RData) and the tree model fitting part. The file afg.csv is needed for the topic models. However, we advice caution on running the topic models as it needs an huge amount of RAM.
+
+            *fitfunctionsWikileaks.R ... A collection of R functions to fit the negative binomial model tree. This needs only be sourced. This code is also available in the R package mobtools.
+            *plotfunctionsWikileaks.R ...A collection of R functions to plot the negative binomial model tree. This needs only be sourced. This code is also available in the R package mobtools.
+  
+    - model validation: 
+            * validationWikileaks.R... The code we used for model validation. Gets quite messy halfway through. 
