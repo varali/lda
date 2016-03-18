@@ -10,6 +10,7 @@ require("NLP",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
 require("tm",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
 require("topicmodels",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
 require("SnowballC",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
+require("slam",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
 
 
 readAFG <- function(elem, language, id)
@@ -33,7 +34,7 @@ afg_corp <- Corpus(DataframeSource(afg), readerControl = list(reader =readAFG)) 
 options(mc.cores=1)
 ##
 afg_DTM <- DocumentTermMatrix(afg_corp, control = list(removePunctuation = TRUE, removeNumbers = TRUE, stemming = TRUE, stopwords = TRUE, minWordLength= 2))  #takes a LOT of time
-index <- which(rowSums(afg_DTM)==0)      
+index <- which(row_sums(afg_DTM)==0)      
 #removing those without a report summary
 afg_DTM <- afg_DTM[-index,]
 meta_data<- meta_data[-index,]
