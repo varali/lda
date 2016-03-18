@@ -1,10 +1,15 @@
+#!/usr/bin/env Rscript
 #############################################################################################
 ###### Pre-processing Afghanistan war log with topic models
 #################################################################
 #P. Hofmarcher, 2011
 
-require("tm")
-require("topicmodels")
+#require("tm")
+#require("topicmodels")
+require("NLP",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
+require("tm",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
+require("topicmodels",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
+require("SnowballC",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
 
 
 readAFG <- function(elem, language, id)
@@ -21,13 +26,20 @@ colnames(meta_data)<-c("reportkey", "date", "type", "category", "tracking_n", "t
 meta_data$date <- as.Date(meta_data$date)
 
 ## Document Term Matrix
+print(date())
+print("Phase 1 - start")
 afg_corp <- Corpus(DataframeSource(afg), readerControl = list(reader =readAFG))  #takes some time
+## JLP
+options(mc.cores=1)
+##
 afg_DTM <- DocumentTermMatrix(afg_corp, control = list(removePunctuation = TRUE, removeNumbers = TRUE, stemming = TRUE, stopwords = TRUE, minWordLength= 2))  #takes a LOT of time
-index <- which(row_sums(afg_DTM)==0)      
+index <- which(rowSums(afg_DTM)==0)      
 #removing those without a report summary
 afg_DTM <- afg_DTM[-index,]
 meta_data<- meta_data[-index,]
-
+print("Phase 1 - complete")
+print(date())
+print("Phase 2 - start")
 ## removing report out of DTM. Each Report summary contains the term "report"
 afg_DTM <- afg_DTM[,-c(which(colnames(afg_DTM)=="report"))]
 
@@ -42,6 +54,8 @@ terms_afg <- terms(afg_LDA, 30)
 
 usedData <- cbind(meta_data,TOPIC)
 save("origData_cbind_topics.rda")
+print("Phase 2 - complete")
+print(date())
 
 ######################################################
 ###### Data cleaning
