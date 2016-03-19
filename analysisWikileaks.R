@@ -53,7 +53,7 @@ topic <- topics(afg_LDA)
 #returns the 30 most frequent terms
 terms_afg <- terms(afg_LDA, 30)
 
-usedData <- cbind(meta_data,TOPIC)
+usedData <- cbind(meta_data,topic)
 save("origData_cbind_topics.rda")
 print("Phase 2 - complete")
 print(date())
