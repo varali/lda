@@ -54,7 +54,7 @@ topic <- topics(afg_LDA)
 terms_afg <- terms(afg_LDA, 30)
 
 usedData <- cbind(meta_data,topic)
-save("origData_cbind_topics.rda")
+save.image(file="origData_cbind_topics.rda")
 print("Phase 2 - complete")
 print(date())
 
