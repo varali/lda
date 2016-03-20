@@ -11,8 +11,8 @@ require("tm",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
 require("topicmodels",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
 require("SnowballC",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
 require("slam",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
-require(mvtnorm,lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
-require(party,lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
+require("mvtnorm",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
+require("party",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
 
 
 readAFG <- function(elem, language, id)
