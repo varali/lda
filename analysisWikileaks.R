@@ -11,6 +11,8 @@ require("tm",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
 require("topicmodels",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
 require("SnowballC",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
 require("slam",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
+require(mvtnorm,lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
+require(party,lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
 
 
 readAFG <- function(elem, language, id)
@@ -96,9 +98,6 @@ save(afg,file="afgClean.RData")
 
 #load data
 load("afgClean.RData")
-
-#packages
-library(party)
 
 #source the function that are not in party and written by us
 #contains a negative binomial S4 statsmodel  and a fitting function based on glm.nb()
