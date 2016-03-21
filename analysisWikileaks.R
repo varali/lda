@@ -13,7 +13,7 @@ require("SnowballC",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
 require("slam",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
 require("mvtnorm",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
 require("party",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
-
+require("MASS",lib.loc="~/R/x86_64-redhat-linux-gnu-library/3.2/")
 
 readAFG <- function(elem, language, id)
     PlainTextDocument(elem$content[7],
@@ -118,5 +118,7 @@ print("Making plots...")
 source("plotfunctionsWikileaks.R")
 
 #plotting
+png("tree.png",width=1200,height=400)
 plot.BinaryTree(fmAll,terminal_panel=node_meansddevplot3)
+dev.off()
 
