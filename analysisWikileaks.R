@@ -115,6 +115,7 @@ summary(fmAll)
 #source the plot functions that are not in party and written by us
 #contains a binary tree with a mean-standard deviation terminal function plot
 print("Making plots...")
+save(fmAll,file="fmAll.RData")
 source("plotfunctionsWikileaks.R")
 
 #plotting
