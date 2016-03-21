@@ -66,7 +66,7 @@ print(date())
 #T. Rusch, 2011
 
 load("origData_cbind_topics.rda")
-newnam <- names(usedData)[-7] #remove the text summaries, as they are to big
+newnam <- usedData[,-7] #remove the text summaries, as they are to big
 
 #some new names 
 newnam[c(27,28)] <- c("ccir","sigact")
@@ -84,7 +84,7 @@ summary(m1)
 #name the dummy matrix
 n1 <- rep(NA,100)
 for(i in 1:100) n1[i] <- paste("t",i,sep="")
-dimnames(m1)[[2]] <- n1
+dimnames(m1)[[2]] <- n1[seq(1,length(dimnames(m1)[[2]]))]
 m1 <- as.data.frame(m1)
 for(i in 1:100) m1[,i] <- factor(m1[,i])
 summary(m1)
